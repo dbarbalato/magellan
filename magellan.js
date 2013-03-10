@@ -16,7 +16,7 @@
     var DD_FORMAT_REGEX = /^([+-]?\d{1,3})(.\d+)?$/
 
     // Degrees minutes seconds format (e.g. 12°34'56" N or N12°34'56.123" )
-    var DMS_FORMAT_REGEX = /^[NSEW]?\s*(\d{1,3})°?\s*(?:(\d{1,2})'\s*?(?:(\d{1,2}(?:.\d+)?)"?\s*)?)?\s*[NSEW]?$/
+    var DMS_FORMAT_REGEX = /^[NSEW]?\s*(\d{1,3})°?\s*(?:(\d{1,2})'?\s*(?:(\d{1,2}(?:.\d+)?)"?\s*)?)?\s*[NSEW]?$/
     
     // Magellan base function
     function magellan() {
