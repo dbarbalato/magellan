@@ -35,11 +35,11 @@
 
 <p>From validating the rules of composition for latitudes and longitudes to deciding on the format of the output, working with geo-coordinates can be a pretty big pain. Until Magellan, that is. Now, working with coordinates can be as simple as:</p>
 
-<pre><code>$ // decimal-degrees to degrees-minutes-seconds
-$ magellan(12.3456).latitude().toDMS() // 12° 20' 44.1594" N
-$ magellan(-12.3456).latitude().toDMS() // 12° 20' 44.1594" S
-$ magellan(123.456).longitude().toDMS() // 123° 27' 21.6" E
-$ magellan(-123.456).longitude().toDMS() // 123° 27' 21.6" W
+<pre><code>// decimal-degrees to degrees-minutes-seconds
+magellan(12.3456).latitude().toDMS() // 12° 20' 44.1594" N
+magellan(-12.3456).latitude().toDMS() // 12° 20' 44.1594" S
+magellan(123.456).longitude().toDMS() // 123° 27' 21.6" E
+magellan(-123.456).longitude().toDMS() // 123° 27' 21.6" W
 </code></pre>
 
 <h3>Installation</h3>
