@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Magellan by dbarbalato</title>
+    <title>Magellan by Dave Barbalato</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -93,27 +93,33 @@ magellan('123°27\'21.6000"W').longitude().toDD() // -123.4560
 <p>Magellan was designed with flexibility in mind, and is capable of receiving your coordinate inputs in a number of ways:</p>
 
 <pre><code>// degrees-decimal input formats
-magellan(12.3456)                    // positive number
-magellan(-12.3456)                   // negative number
-magellan('12.3456')                  // string in degrees-decimal format (can also start with +/-)
-magellan(12.3456, 'E')               // with a 2nd argument indication the compass direction [NSEW]
+magellan(12.3456)                         // positive number
+magellan(-12.3456)                        // negative number
+magellan('12.3456')                       // string in degrees-decimal format (can also start with +/-)
+magellan(12.3456, 'E')                    // with a 2nd argument indication the compass direction [NSEW]
 
 // degrees-minutes-seconds input formats
-magellan('123')                      // just degrees (or just degrees and minutes)
-magellan('12°34\'56.7890"S')         // degrees, minutes, seconds, milliseconds and direction
-magellan('12 34 56 N')               // space-delimited string in degrees-minutes-seconds format
-magellan('N12 34 56')                // same as above, with leading compass direction
+magellan('123')                           // just degrees (or just degrees and minutes)
+magellan('12°34\'56.7890"S')              // degrees, minutes, seconds, milliseconds and direction
+magellan('12 34 56 N')                    // space-delimited string in degrees-minutes-seconds format
+magellan('N12 34 56')                     // same as above, with leading compass direction
 </code></pre>
 
-<p>Once you have initialized the Magellan function, you will need to chain methods to produce output:</p>
+<p>Once you have an initialized Magellan chain, you can grab your parsed coordinate:</p>
+magellan('12°34\'56.7890"S') .coordinate  // {degrees: 12, minutes: 34, seconds: 56.789, direction: 'S'}
+<pre><code>
 
-<pre><code>magellan(12.3456).toDD()             // print 12.3456 in +/-DD.dddd format
-magellan('123').toDMS()              // print 12.3456 in DD°MM'SS.mmmmm" format
-magellan('123').toDMS('_')           // same as above, except delimit the output with '_' character
-magellan(12.3456).latitude()         // treat 12.3456 as latitude
-magellan(12.3456).latitude().toDD()  // print 12.3456 as latitude in +/-DD.dddd format
+</code></pre>
 
-magellan(12.3456).longitude()        // treat as longitude, also chain-able as seen above
+<p>Moving on to the more interesting features:</p>
+
+<pre><code>magellan(12.3456).toDD()        // print 12.3456 in +/-DD.dddd format
+magellan('123').toDMS()                    // print 12.3456 in DD°MM'SS.mmmmm" format
+magellan('123').toDMS('_')                 // same as above, except delimit the output with '_' character
+magellan(12.3456).latitude()               // treat 12.3456 as latitude
+magellan(12.3456).latitude().toDD()        // print 12.3456 as latitude in +/-DD.dddd format
+
+magellan(12.3456).longitude()              // treat as longitude, ready for chained methods seen above
 </code></pre>
 
 <h3>A Word on using <code>.latitude()</code> and <code>.longitude()</code>
@@ -136,7 +142,7 @@ magellan(12.3456).longitude()        // treat as longitude, also chain-able as s
 <p>If interested in contributing, contact Dave Barbalato (<a href="https://github.com/dbarbalato" class="user-mention">@dbarbalato</a>)</p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/dbarbalato">dbarbalato</a></p>
+        <p>This project is maintained by <a href="https://github.com/dbarbalato">Dave Barbalato (dbarbalato)</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
