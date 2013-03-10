@@ -88,7 +88,7 @@ magellan('123°27\'21.6000"W').longitude().toDD() // -123.4560
 
 <h2>Basic Usage</h2>
 
-<h3>Creating a Magellan object</h3>
+<h3>Initializing a Magellan chain</h3>
 
 <p>Magellan was designed with flexibility in mind, and is capable of receiving your coordinate inputs in a number of ways:</p>
 
@@ -105,12 +105,14 @@ magellan('12 34 56 N')                    // space-delimited string in degrees-m
 magellan('N12 34 56')                     // same as above, with leading compass direction
 </code></pre>
 
+<h3>Working with the parsed coordinate</h3>
+
 <p>Once you have an initialized Magellan chain, you can grab your parsed coordinate:</p>
 
 <pre><code>magellan('12°34\'56.7890"S').coordinate  // {degrees: 12, minutes: 34, seconds: 56.789, direction: 'S'}
 </code></pre>
 
-<p>Moving on to the more interesting features:</p>
+<p>Or if you are interested in formatting your coordinate, you can use the more interesting features below:</p>
 
 <pre><code>magellan(12.3456).toDD()        // print 12.3456 in +/-DD.dddd format
 magellan('123').toDMS()                    // print 12.3456 in DD°MM'SS.mmmmm" format
