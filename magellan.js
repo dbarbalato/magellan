@@ -152,7 +152,7 @@
 
     }
 
-    // Publish the library, either as an AMD module or to the window
+    // Publish the library as an AMD module, CommonJS Module, or to the global window object
     if (typeof define === 'function' && define.amd) {
         define('magellan', function() {
             return magellan;
