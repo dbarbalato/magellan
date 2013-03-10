@@ -3,6 +3,6 @@
   "description": "JavaScript Latitude and Longitude Validation and Formatting",
   "version": "1.0.0",
   "scripts": {
-    "test": "expresso test/*"
+    "test": "node test/suite.js"
   }
 }
