@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Magellan by Dave Barbalato</title>
+    <title>Magellan by dbarbalato</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -24,22 +24,8 @@
         <ul>
           <li><a href="https://github.com/dbarbalato/magellan/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/dbarbalato/magellan/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="javascript:document.forms[0].submit();">Buy Me A <strong>Beer</strong></a></li>
+          <li><a href="https://github.com/dbarbalato/magellan">View On <strong>GitHub</strong></a></li>
         </ul>
-        
-        <form style="display: none;" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-          <input type="hidden" name="cmd" value="_donations">
-          <input type="hidden" name="business" value="dbarbalato@gmail.com">
-          <input type="hidden" name="lc" value="US">
-          <input type="hidden" name="item_name" value="Dave Barbalato Beer Fund">
-          <input type="hidden" name="no_note" value="0">
-          <input type="hidden" name="currency_code" value="USD">
-          <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
-          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-          <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
-
-        
       </header>
       <section>
         <h2>Introducing Magellan</h2>
@@ -117,12 +103,26 @@ magellan(12.3456).latitude().toDD()  // print 12.3456 as latitude in +/-DD.dddd 
 magellan(12.3456).longitude()        // treat as longitude, also chain-able as seen above
 </code></pre>
 
+<h3>A Word on using <code>.latitude()</code> and <code>.longitude()</code>
+</h3>
+
+<p><code>.latitude()</code> and <code>.longitude()</code> applied to a Magellan chain act as casts, essentially converting the parsed coordinates into a latitude or longitude, respectively. In doing so, these functions perform basic validation. In the event that a validation rule fails, the function will return <code>null</code>, breaking the chain.</p>
+
+<p>The validation rules are as follows:</p>
+
+<pre><code>1. A latitude must not exceed +/- 90 degrees. A longitude must not exceed +/- 180 degrees.
+
+2. Minutes and seconds must be less than 60.
+
+3. If chaining ``.latitude()``, compass direction (if present) must be either 'N' or 'S'. 'E' or 'W' when chaining ``.longitude()``
+</code></pre>
+
 <h2>Authors and Contributors</h2>
 
 <p>If interested in contributing, contact Dave Barbalato (<a href="https://github.com/dbarbalato" class="user-mention">@dbarbalato</a>)</p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/dbarbalato">Dave Barbalato (dbarbalato)</a></p>
+        <p>This project is maintained by <a href="https://github.com/dbarbalato">dbarbalato</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
