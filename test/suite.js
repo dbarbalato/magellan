@@ -8,6 +8,19 @@ assert.equal('123.4567', magellan(magellan(123.4567).toDMS()).toDD())
 assert.equal('123°27\'24.1200"W', magellan(magellan(-123.4567).longitude().toDMS()).toDMS())
 assert.equal('12.3456', magellan(magellan(12.3456).toDMS(' ')).toDD())
 
+/* VERSION */
+
+// magellan must expose its version
+assert.equal('1.0.1', magellan.version)
+
+/* PARSING */
+
+// magellan must correctly expose the coordinate object that it parses
+assert.deepEqual({degrees: 12, minutes: 32, seconds: 13.44, direction: 'N'}, magellan('12 32 13.44 N').coordinate)
+assert.deepEqual({degrees: -12, minutes: 0, seconds: 0, direction: 'E'}, magellan('-12', 'E').coordinate)
+assert.deepEqual({degrees: -12, minutes: 0, seconds: 0}, magellan('-12').coordinate)
+assert.deepEqual({}, magellan().coordinate)
+
 /* VALIDATION */
 
 // latitude must not exceed +/-90 degrees

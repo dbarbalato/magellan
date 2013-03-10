@@ -1,10 +1,10 @@
-// Magellan version 1.0.0
+// Magellan version 1.0.1
 // Provided by Dave Barbalato - https://github.com/dbarbalato/
 // Distributable under the MIT License
 ;(function() {
 
     // Version identifier
-    var VERSION = '1.0.0';
+    var VERSION = '1.0.1';
 
     // Compass direction constants
     var NORTH = 'N';
@@ -21,7 +21,8 @@
     // Magellan base function
     function magellan() {
 
-        var coordinate = {};
+		// Store the parsed fields in the publicly exposed coordinate object
+        var coordinate = magellan.coordinate = {};
 
         // Handle function call when magellan( '-123', '45', '59' ) or similar
         if (arguments.length >= 3) {
@@ -143,13 +144,13 @@
             return null;
         }
 
+	    // Expose the version
+	    magellan.version = VERSION;
+
         // Enable method chaining
         return magellan;
 
     }
-
-    // Expose the version
-    magellan.version = 'Version ' + VERSION;
 
     // Publish the library, either as an AMD module or to the window
     if (typeof define === 'function' && define.amd) {
