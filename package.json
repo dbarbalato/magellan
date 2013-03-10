@@ -1,3 +1,8 @@
-'scripts': {
-  'test': 'expresso test/*'
+{
+  "name": "Magellan",
+  "description": "JavaScript Latitude and Longitude Validation and Formatting",
+  "version": "1.0",
+  "scripts": {
+    "test": "expresso test/*"
+  }
 }
