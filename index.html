@@ -1,75 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Magellan : JavaScript Latitude and Longitude Validation and Formatting" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Magellan by dbarbalato</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Magellan</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1>Magellan</h1>
+        <p>JavaScript Latitude and Longitude Validation and Formatting</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/dbarbalato/magellan">View on GitHub</a>
+        <p class="view"><a href="https://github.com/dbarbalato/magellan">View the Project on GitHub <small>dbarbalato/magellan</small></a></p>
 
-          <h1 id="project_title">Magellan</h1>
-          <h2 id="project_tagline">JavaScript Latitude and Longitude Validation and Formatting</h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/dbarbalato/magellan/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/dbarbalato/magellan/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+        <ul>
+          <li><a href="https://github.com/dbarbalato/magellan/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/dbarbalato/magellan/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/dbarbalato/magellan">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>Introducing Magellan</h2>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Magellan</h3>
+<p>From validating the rules of composition for latitudes and longitudes to deciding on the format of the output, working with geo-coordinates can be a pretty big pain. </p>
 
-<p>From validating the rules of composition for latitudes and longitudes to deciding on the format of the output, working with geo-coordinates can be a pretty big pain. Until Magellan, that is. Now, working with coordinates can be as simple as:</p>
+<p>Until Magellan, that is...</p>
+
+<p>Now, working with coordinates can be as simple as:</p>
 
 <pre><code>// decimal-degrees to degrees-minutes-seconds
-magellan(12.3456).latitude().toDMS(' ')   // 12° 20' 44.1600" N
-magellan(-12.3456).latitude().toDMS()     // 12°20'44.1600"S
-magellan(123.456).longitude().toDMS()     // 123°27'21.6"E
-magellan(-123.456).longitude().toDMS(' ') // 123° 27' 21.6" W
+magellan(12.3456).latitude().toDMS()      // 12°20'44.1600"N
+magellan(-12.3456).latitude().toDMS(' ')  // 12° 20' 44.1600" S
+magellan(123.456).longitude().toDMS()     // 123°27'21.6000"E
+magellan(-123.456).longitude().toDMS(' ') // 123° 27' 21.6000" W
+
+// or degrees-minutes-seconds to decimal-degrees
+magellan('12°20\'44.1600"N').latitude().toDD()   // 12.3456
+magellan('12°20\'44.1600"S').latitude().toDD()   // -12.3456
+magellan('123°27\'21.6000"E').longitude().toDD() // 123.4560
+magellan('123°27\'21.6000"W').longitude().toDD() // -123.4560
 </code></pre>
 
-<h3>Installation</h3>
+<p>All nice and gussied up for ya'!</p>
 
-<pre><code>$ 
+<h2>Getting Started</h2>
+
+<p>Magellan is designed to fit seamlessly into your application environment. It can be used standalone, as a <code>&lt;script&gt;</code> include on your page, or can be loaded as a CommonJS or AMD module.</p>
+
+<p>To start using Magellan is simple. First, download the source file and include in your project. You can embed Magellan into your app using one of the following methods:</p>
+
+<h3>In an HTML Document</h3>
+
+<pre><code>&lt;!-- Somewhere in your HTML file --&gt;
+&lt;script src="/path/to/magellan.js" type="text/javascript"&gt;&lt;/script&gt;
 </code></pre>
 
-<h3>Usage</h3>
+<h3>In a CommonJS environment (e.g. NodeJS)</h3>
 
-<h3>Validation</h3>
+<pre><code>var magellan = require('/path/to/magellan')
+</code></pre>
 
-<h3>Formats</h3>
+<h3>In an AMD environment (e.g. RequireJS)</h3>
 
-<h3>Authors and Contributors</h3>
+<pre><code>require(['/path/to/magellan'], function(magellan) { ... }
+</code></pre>
+
+<h2>Basic Usage</h2>
+
+<h3>Creating a Magellan object</h3>
+
+<p>Magellan was designed with flexibility in mind, and is capable of receiving your coordinate inputs in a number of ways:</p>
+
+<pre><code>// degrees-decimal input formats
+magellan(12.3456)                    // positive number
+magellan(-12.3456)                   // negative number
+magellan('12.3456')                  // string in degrees-decimal format (can also start with +/-)
+magellan(12.3456, 'E')               // with a 2nd argument indication the compass direction [NSEW]
+
+// degrees-minutes-seconds input formats
+magellan('123')                      // just degrees (or just degrees and minutes)
+magellan('12°34\'56.7890"S')         // degrees, minutes, seconds, milliseconds and direction
+magellan('12 34 56 N')               // space-delimited string in degrees-minutes-seconds format
+magellan('N12 34 56')                // same as above, with leading compass direction
+</code></pre>
+
+<p>Once you have initialized the Magellan function, you will need to chain methods to produce output:</p>
+
+<pre><code>magellan(12.3456).toDD()             // print 12.3456 in +/-DD.dddd format
+magellan('123').toDMS()              // print 12.3456 in DD°MM'SS.mmmmm" format
+magellan('123').toDMS('_')           // same as above, except delimit the output with '_' character
+magellan(12.3456).latitude()         // treat 12.3456 as latitude
+magellan(12.3456).latitude().toDD()  // print 12.3456 as latitude in +/-DD.dddd format
+
+magellan(12.3456).longitude()        // treat as longitude, also chain-able as seen above
+</code></pre>
+
+<h2>Authors and Contributors</h2>
 
 <p>If interested in contributing, contact Dave Barbalato (<a href="https://github.com/dbarbalato" class="user-mention">@dbarbalato</a>)</p>
-
-<h3>Support or Contact</h3>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Magellan maintained by <a href="https://github.com/dbarbalato">dbarbalato</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/dbarbalato">dbarbalato</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-
+    <script src="javascripts/scale.fix.js"></script>
     
-
   </body>
 </html>
