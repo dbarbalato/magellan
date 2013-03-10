@@ -105,7 +105,7 @@ magellan('12 34 56 N')                    // space-delimited string in degrees-m
 magellan('N12 34 56')                     // same as above, with leading compass direction
 </code></pre>
 
-<h3>Working with the parsed coordinate</h3>
+<h3>Working with a parsed coordinate</h3>
 
 <p>Once you have an initialized Magellan chain, you can grab your parsed coordinate:</p>
 
@@ -123,7 +123,7 @@ magellan(12.3456).latitude().toDD()        // print 12.3456 as latitude in +/-DD
 magellan(12.3456).longitude()              // treat as longitude, ready for chained methods seen above
 </code></pre>
 
-<h3>A Word on using <code>.latitude()</code> and <code>.longitude()</code>
+<h3>A word on using <code>.latitude()</code> and <code>.longitude()</code>
 </h3>
 
 <p><code>.latitude()</code> and <code>.longitude()</code> applied to a Magellan chain act as casts, essentially converting the parsed coordinates into a latitude or longitude, respectively. In doing so, these functions perform basic validation. In the event that a validation rule fails, the function will return <code>null</code>, breaking the chain.</p>
