@@ -156,6 +156,8 @@
         define('magellan', function() {
             return magellan;
         });
+    } else if(typeof require === 'function' && typeof exports === 'object') {
+        exports.magellan = magellan;
     } else {
         window.magellan = magellan;
     }
