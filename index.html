@@ -123,6 +123,18 @@ magellan(12.3456).latitude().toDD()        // print 12.3456 as latitude in +/-DD
 magellan(12.3456).longitude()              // treat as longitude, ready for chained methods seen above
 </code></pre>
 
+<h3>Comparing coordinate</h3>
+
+<p>With version 1.0.2, the ability to compare equality in coordinates has been added. So now, for example, you can do the following</p>
+
+<pre><code>
+var coord1 = magellan(123.456).longitude();
+var coord2 = magellan('123°27\'21.6000"E')
+coord1.equals(coord2)                       // true
+coord2.equals(magellan(123.456)             // true
+coord1.equals(magellan(-123.456))           // false
+</code><pre>
+
 <h3>A word on using <code>.latitude()</code> and <code>.longitude()</code>
 </h3>
 
