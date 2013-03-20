@@ -1,6 +1,11 @@
 var magellan = require('../magellan')
 var assert = require('assert')
 
+/* FACTORY */
+var x = magellan(123.45)
+var y = magellan(54.321)
+assert.notDeepEqual(x.coordinate, y.coordinate)
+
 /* IDEMPOTENCY */
 
 // must get the same result when coverting between formats consecutively
@@ -10,8 +15,8 @@ assert.equal('12.3456', magellan(magellan(12.3456).toDMS(' ')).toDD())
 
 /* VERSION */
 
-// magellan must expose its version
-assert.equal('1.0.1', magellan.version)
+// magellan must correctly expose its version
+assert.equal('1.0.2', magellan.version)
 
 /* PARSING */
 
@@ -51,6 +56,27 @@ assert.notEqual(null, magellan('89°12\'15.456"W').longitude())
 assert.equal(null, magellan('89°12\'15.456"S').longitude())
 assert.equal(null, magellan('89°12\'15.456"N').longitude())
 
+/* COMPARISON */
+var x = magellan(123.456).longitude()
+var y = magellan(54.321).latitude()
+var z = magellan('123°27\'21.6000"E')
+
+// equals self
+assert.equal(true, x.equals(x))
+assert.equal(true, y.equals(y))
+assert.equal(true, z.equals(z))
+assert.equal(true, magellan(123).equals(magellan(123)))
+
+// identifies equality
+assert.equal(true, x.equals(z))
+assert.equal(true, z.equals(x))
+
+// identifies inequality
+assert.equal(false, x.equals(y))
+assert.equal(false, y.equals(x))
+assert.equal(false, magellan(123).equals(magellan(-123)))
+
+
 /* FORMATTING */
 
 assert.equal('123°q27\'q21.6000"qE', magellan(123.456, 'E').toDMS('q'))
@@ -61,4 +87,5 @@ assert.equal('-123.0000', magellan(-123).toDD())
 assert.equal('123°27\'21.6000"W', magellan(-123.456).longitude().toDMS())
 assert.equal('12.3000', magellan(12.3).toDD())
 assert.equal('12° 20\' 44.1600" S', magellan(-12.3456).latitude().toDMS(' '))
+
 
