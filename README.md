@@ -3,4 +3,4 @@ Magellan [![Build Status](https://travis-ci.org/dbarbalato/magellan.png)](https:
 
 JavaScript Latitude and Longitude Validation and Formatting
 
-See http://dbarbalato.github.com/magellan/ for documentation.
+GitHub page: http://dbarbalato.github.com/magellan/ (Super Awesome, 100% - You Click Now!)
