@@ -13,10 +13,10 @@
     var WEST = 'W';
 
     // Signed degree format (e.g. -123.45)
-    var DD_FORMAT_REGEX = /^([+-]?\d{1,3})(.\d+)?$/
+    var DD_FORMAT_REGEX = /^([+-]?\d{1,3})(.\d+)?$/;
 
     // Degrees minutes seconds format (e.g. 12°34'56" N or N12°34'56.123" )
-    var DMS_FORMAT_REGEX = /^[NSEW]?\s*(\d{1,3})°?\s*(?:(\d{1,2})'?\s*(?:(\d{1,2}(?:.\d+)?)"?\s*)?)?\s*[NSEW]?$/
+    var DMS_FORMAT_REGEX = /^[NSEW]?\s*([+-]?\d{1,3})°?\s*(?:(\d{1,2})['`]?\s*(?:(\d{1,2}(?:.\d+)?)["″]?\s*)?)?\s*[NSEW]?$/;
     
     // Magellan factory
     function magellan() {
@@ -41,7 +41,7 @@
 
 	            //  Attempt to match against Decimal Degrees format
 	            if ((matches = args[0].match(DD_FORMAT_REGEX)) != null) {
-	                coordinate.degrees = parseInt(matches[1])
+	                coordinate.degrees = parseInt(matches[1]);
 
 	                var decimal = parseFloat(matches[2]) || 0.0;
 	                coordinate.minutes = parseInt(decimal * 60);
@@ -77,8 +77,8 @@
 	            var decimal = coordinate.minutes / 60 + coordinate.seconds / 3600;
 
 	            var formatted;
-	            if (coordinate.degrees > 0) formatted = (coordinate.degrees + decimal)
-	            else formatted = (coordinate.degrees - decimal)
+	            if (coordinate.degrees > 0) formatted = (coordinate.degrees + decimal);
+	            else formatted = (coordinate.degrees - decimal);
             
 	            // Limit the precision to 4 decimal places
 	            formatted = formatted.toFixed(4);
@@ -87,7 +87,7 @@
 	                    && (coordinate.direction == SOUTH || coordinate.direction == WEST))
 	                    formatted = '-' + formatted;
 	            return formatted;
-	        }
+	        };
 
 	        // Format the current coordinate as Degrees Minutes Seconds
 	        // Optionally join components on a seperator by providing a string argument
@@ -98,8 +98,8 @@
 	                coordinate.seconds.toFixed(4) + '"',
 	                (coordinate.direction ? coordinate.direction : '')
 	            ];
-	            return typeof seperator === 'string' ? components.join(seperator) : components.join('')
-	        }
+	            return typeof seperator === 'string' ? components.join(seperator) : components.join('');
+	        };
 
 	        // Validate the current coordinate as latitude
 	        this.latitude = function() {
@@ -114,7 +114,12 @@
 
 	                    // In the event coordinate direction is null, we can automatically infer it
 	                    // using the value of the degrees
-	                    if (!coordinate.direction) coordinate.direction = coordinate.degrees > 0 ? NORTH : SOUTH
+	                    if (!coordinate.direction) {
+	                        coordinate.direction = coordinate.degrees > 0 ? NORTH : SOUTH;
+	                        //Since we're storing direction in a separate field, degrees is always an absolute value.
+	                        //Prevents double '-' sign on formatting to decimal.
+	                        coordinate.degrees = Math.abs(coordinate.degrees);
+	                    }
 
 	                    // Enable method chaining
 	                    return this;
@@ -122,7 +127,7 @@
 
 	            // In the event of a failure, break the chain, throwing an error
 	            return null;
-	        }
+	        };
 
 	        // Validate the current coordinate as longitude
 	        this.longitude = function() {
@@ -138,7 +143,12 @@
 
 	                    // In the event coordinate direction is null, we can automatically infer it
 	                    // using the value of the degrees
-	                    if (!coordinate.direction) coordinate.direction = coordinate.degrees > 0 ? EAST : WEST
+	                    if (!coordinate.direction) {
+	                      coordinate.direction = coordinate.degrees > 0 ? EAST : WEST;
+                        //Since we're storing direction in a separate field, degree is always an absolute value.
+	                      //Prevents double '-' sign on formatting to decimal.
+                        coordinate.degrees = Math.abs(coordinate.degrees);
+	                    }
 
 	                    // Enable method chaining
 	                    return this;
@@ -146,7 +156,7 @@
 
 	            // In the event of a failure, break the chain, throwing an error
 	            return null;
-	        }
+	        };
 	
 			// Compare with another magellan instance for equality
 			this.equals = function(other) {
@@ -154,9 +164,9 @@
 					&& coordinate.degrees == other.coordinate.degrees
 					&& coordinate.minutes == other.coordinate.minutes
 					&& coordinate.seconds == other.coordinate.seconds
-					&& coordinate.direction == other.coordinate.direction
-			}
-		}
+					&& coordinate.direction == other.coordinate.direction;
+			};
+		};
 	
 		// Expose the version
 		magellan.version = VERSION;
