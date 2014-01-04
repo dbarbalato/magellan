@@ -16,7 +16,7 @@
     var DD_FORMAT_REGEX = /^([+-]?\d{1,3})(.\d+)?$/
 
     // Degrees minutes seconds format (e.g. 12°34'56" N or N12°34'56.123" )
-    var DMS_FORMAT_REGEX = /^[NSEW]?\s*(\d{1,3})°?\s*(?:(\d{1,2})['`]?\s*(?:(\d{1,2}(?:.\d+)?)["″]?\s*)?)?\s*[NSEW]?$/
+    var DMS_FORMAT_REGEX = /^[NSEW]?\s*([+-]?\d{1,3})°?\s*(?:(\d{1,2})['`]?\s*(?:(\d{1,2}(?:.\d+)?)["″]?\s*)?)?\s*[NSEW]?$/
     
     // Magellan factory
     function magellan() {
@@ -114,7 +114,12 @@
 
 	                    // In the event coordinate direction is null, we can automatically infer it
 	                    // using the value of the degrees
-	                    if (!coordinate.direction) coordinate.direction = coordinate.degrees > 0 ? NORTH : SOUTH
+	                    if (!coordinate.direction) {
+	                        coordinate.direction = coordinate.degrees > 0 ? NORTH : SOUTH;
+	                        //Since we're storing direction in a separate field, degrees is always an absolute value.
+	                        //Prevents double '-' sign on formatting to decimal.
+	                        coordinate.degrees = Math.abs(coordinate.degrees);
+	                    }
 
 	                    // Enable method chaining
 	                    return this;
@@ -138,7 +143,12 @@
 
 	                    // In the event coordinate direction is null, we can automatically infer it
 	                    // using the value of the degrees
-	                    if (!coordinate.direction) coordinate.direction = coordinate.degrees > 0 ? EAST : WEST
+	                    if (!coordinate.direction) {
+	                      coordinate.direction = coordinate.degrees > 0 ? EAST : WEST;
+                        //Since we're storing direction in a separate field, degree is always an absolute value.
+	                      //Prevents double '-' sign on formatting to decimal.
+                        coordinate.degrees = Math.abs(coordinate.degrees);
+	                    }
 
 	                    // Enable method chaining
 	                    return this;
