@@ -81,7 +81,7 @@
 	            else formatted = (coordinate.degrees - decimal);
             
 	            // Limit the precision to 4 decimal places
-	            formatted = formatted.toFixed(4);
+	            formatted = formatted.toFixed(6);
 
 	            if (coordinate.direction
 	                    && (coordinate.direction == SOUTH || coordinate.direction == WEST))
