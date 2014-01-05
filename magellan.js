@@ -77,7 +77,7 @@
 	            var decimal = coordinate.minutes / 60 + coordinate.seconds / 3600;
 
 	            var formatted;
-	            if (coordinate.degrees > 0) formatted = (coordinate.degrees + decimal);
+	            if (coordinate.degrees >= 0) formatted = (coordinate.degrees + decimal);
 	            else formatted = (coordinate.degrees - decimal);
             
 	            // Limit the precision to 4 decimal places
