@@ -75,13 +75,10 @@
 	        // Format the current coordinate as Degrees Decimal
 	        this.toDD = function() {
 	            var decimal = coordinate.minutes / 60 + coordinate.seconds / 3600;
-
+              decimal = decimal.toPrecision(6);
 	            var formatted;
 	            if (coordinate.degrees >= 0) formatted = (coordinate.degrees + decimal);
 	            else formatted = (coordinate.degrees - decimal);
-            
-	            // Limit the precision to 4 decimal places
-	            formatted = formatted.toFixed(6);
 
 	            if (coordinate.direction
 	                    && (coordinate.direction == SOUTH || coordinate.direction == WEST))
