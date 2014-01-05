@@ -9,9 +9,9 @@ assert.notDeepEqual(x.coordinate, y.coordinate)
 /* IDEMPOTENCY */
 
 // must get the same result when coverting between formats consecutively
-assert.equal('123.4567', magellan(magellan(123.4567).toDMS()).toDD())
+assert.equal('123.456700', magellan(magellan(123.4567).toDMS()).toDD())
 assert.equal('123°27\'24.1200"W', magellan(magellan(-123.4567).longitude().toDMS()).toDMS())
-assert.equal('12.3456', magellan(magellan(12.3456).toDMS(' ')).toDD())
+assert.equal('12.345600', magellan(magellan(12.3456).toDMS(' ')).toDD())
 
 /* VERSION */
 
@@ -81,11 +81,11 @@ assert.equal(false, magellan(123).equals(magellan(-123)))
 
 assert.equal('123°q27\'q21.6000"qE', magellan(123.456, 'E').toDMS('q'))
 assert.equal('123°27\'21.6000"E', magellan(123.456).longitude().toDMS())
-assert.equal('123.4560', magellan('123°27\'21.6"E').toDD())
-assert.equal('123.4560', magellan('123°27\'21.6"').longitude().toDD())
-assert.equal('-123.0000', magellan(-123).toDD())
+assert.equal('123.456000', magellan('123°27\'21.6"E').toDD())
+assert.equal('123.456000', magellan('123°27\'21.6"').longitude().toDD())
+assert.equal('-123.000000', magellan(-123).toDD())
 assert.equal('123°27\'21.6000"W', magellan(-123.456).longitude().toDMS())
-assert.equal('12.3000', magellan(12.3).toDD())
+assert.equal('12.300000', magellan(12.3).toDD())
 assert.equal('12° 20\' 44.1600" S', magellan(-12.3456).latitude().toDMS(' '))
 
 
