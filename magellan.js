@@ -50,7 +50,7 @@
 	            // Attempt to match against Degrees Minutes Seconds format
 	            } else if ((matches = args[0].match(DMS_FORMAT_REGEX)) != null) {
 	                coordinate.degrees = parseInt(matches[1]);
-	                coordinate.minutes = parseFloat(matches[2])|| 0.0;
+	                coordinate.minutes = parseFloat(matches[2] || 0.0);
 	                coordinate.seconds = parseFloat(matches[3] || 0.0);
 	            }
 	        } 
