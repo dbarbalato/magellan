@@ -16,7 +16,7 @@
     var DD_FORMAT_REGEX = /^([+-]?\d{1,3})(.\d+)?$/;
 
     // Degrees minutes seconds format (e.g. 12°34'56" N or N12°34'56.123" )
-    var DMS_FORMAT_REGEX = /^[NSEW]?\s*([+-]?\d{1,3})°?\s*(?:(\d{1,2})[′'`]?\s*(?:(\d{1,2}(?:.\d+)?)["″]?\s*)?)?\s*[NSEW]?$/;
+    var DMS_FORMAT_REGEX = /^[NSEW]?\s*([+-]?\d{1,3})°?\s*(?:(\d{1,2}(?:.\d+)?)[′'`]\s*(?:(\d{1,2}(?:.\d+)?)["″]\s*)?)?\s*[NSEW]?$/;
     
     // Magellan factory
     function magellan() {
@@ -50,7 +50,7 @@
 	            // Attempt to match against Degrees Minutes Seconds format
 	            } else if ((matches = args[0].match(DMS_FORMAT_REGEX)) != null) {
 	                coordinate.degrees = parseInt(matches[1]);
-	                coordinate.minutes = parseInt(matches[2])|| 0;
+	                coordinate.minutes = parseFloat(matches[2])|| 0.0;
 	                coordinate.seconds = parseFloat(matches[3] || 0.0);
 	            }
 	        } 
