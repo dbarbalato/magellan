@@ -89,3 +89,5 @@ assert.equal('12.300000', magellan(12.3).toDD())
 assert.equal('12° 20\' 44.1600" S', magellan(-12.3456).latitude().toDMS(' '))
 
 
+/* BUGFIX for CASE #4: Longitude parsing and validation fails in specific cases */
+assert.notEqual(null, magellan(-120.1).longitude(), 'Fails with BUG described in CASE#4');

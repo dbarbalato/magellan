@@ -18,6 +18,12 @@
     // Degrees minutes seconds format (e.g. 12°34'56" N or N12°34'56.123" )
     var DMS_FORMAT_REGEX = /^[NSEW]?\s*([+-]?\d{1,3})°?\s*(?:(\d{1,2}(?:\.\d+)?)[′'`]?\s*(?:(\d{1,2}(?:\.\d+)?)["″]?\s*)?)?\s*[NSEW]?$/;
     
+	// per http://stackoverflow.com/a/16696848/62937
+    function truncateNumber(numToTruncate, intDecimalPlaces) {
+        var numPower = Math.pow(10, intDecimalPlaces);
+        return ~~(numToTruncate * numPower)/numPower;
+    }   
+
     // Magellan factory
     function magellan() {
 		
@@ -62,8 +68,19 @@
 	            coordinate.degrees = parseInt(args[0]);
             
 	            var decimal = Math.abs(parseFloat(args[0]) - coordinate.degrees);
-	            coordinate.minutes = parseInt(decimal * 60);
-	            coordinate.seconds = parseFloat((((decimal * 60) - coordinate.minutes) * 60).toFixed(4));
+                var d60 = decimal * 60;
+                coordinate.minutes = parseInt(d60);
+                var m60 = (d60 - coordinate.minutes) * 60;
+	            var s60 = parseFloat((((decimal * 60) - coordinate.minutes) * 60).toFixed(4));
+				if(s60 == 60){
+	                s60 = truncateNumber(m60, 4);				
+				}
+                coordinate.seconds = s60;
+				
+				// var decimal = Math.abs(parseFloat(args[0]) - coordinate.degrees);
+	            // coordinate.minutes = parseInt(decimal * 60);
+				// var m60 = (d60 - coordinate.minutes) * 60;
+	            // coordinate.seconds = parseFloat((((decimal * 60) - coordinate.minutes) * 60).toFixed(4));
 	        } 
 
 	        // Attempt to determine the direction if it was supplied
