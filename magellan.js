@@ -63,7 +63,6 @@
             
 	            var decimal = Math.abs(parseFloat(args[0]) - coordinate.degrees);
 	            coordinate.minutes = parseInt(decimal * 60);
-	            //coordinate.seconds = parseFloat((((decimal * 60) - coordinate.minutes) * 60).toFixed(4));
 
 				var x = ((decimal * 60) - coordinate.minutes) * 60;
 				if(x < 59.99995){
@@ -74,10 +73,10 @@
 				if(coordinate.seconds == 60){
 					coordinate.seconds = 0;
 					coordinate.minutes +=1;
-					// if(coordinate.minutes == 60){
-					// 	coordinate.minutes = 0;
-					// 	coordinate.degrees += 1;
-					// }
+					if(coordinate.minutes == 60){
+						coordinate.minutes = 0;
+						coordinate.degrees += 1;
+					}
 				}					
 			}		
 	        // Attempt to determine the direction if it was supplied
