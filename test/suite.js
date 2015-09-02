@@ -11,6 +11,9 @@ assert.notDeepEqual(x.coordinate, y.coordinate)
 // must get the same result when coverting between formats consecutively
 assert.equal('123.456700', magellan(magellan(123.4567).toDMS()).toDD())
 assert.equal('123°27\'24.1200"W', magellan(magellan(-123.4567).longitude().toDMS()).toDMS())
+assert.equal('19°39\'0.0000"E', magellan(19.6500).longitude().toDMS())
+assert.equal('19°38\'59.9999"E', magellan(19.64999997).longitude().toDMS())
+assert.equal('19°59\'59.9999"E', magellan(19.99999997).longitude().toDMS())
 assert.equal('12.345600', magellan(magellan(12.3456).toDMS(' ')).toDD())
 
 /* VERSION */
