@@ -1,7 +1,7 @@
 {
   "name": "magellan-coords",
   "description": "JavaScript Latitude and Longitude Validation and Formatting",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "magellan.js",
   "scripts": {
     "test": "node test/suite.js"
