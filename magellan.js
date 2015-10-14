@@ -109,6 +109,19 @@
 	            return formatted;
 	        };
 
+	        // Format the current coordinate as Degrees Decimal Minutes
+	        // Optionally join components on a seperator by providing a string argument
+	        this.toDM = function(seperator) {
+              var minutes = coordinate.minutes + (coordinate.seconds / 60);
+
+              var components = [
+	                Math.abs(coordinate.degrees) + '°',
+	                minutes.toFixed(4) + '\'',
+	                (coordinate.direction ? coordinate.direction : '')
+	            ];
+	            return typeof seperator === 'string' ? components.join(seperator) : components.join('');
+	        };
+
 	        // Format the current coordinate as Degrees Minutes Seconds
 	        // Optionally join components on a seperator by providing a string argument
 	        this.toDMS = function(seperator) {

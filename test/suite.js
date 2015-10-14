@@ -8,8 +8,14 @@ assert.notDeepEqual(x.coordinate, y.coordinate)
 
 /* IDEMPOTENCY */
 
+// check formatting
+assert.equal('123.456700', magellan(123.4567).toDD())
+assert.equal('123°27.4020\'', magellan(123.4567).toDM())
+assert.equal('123°27\'24.1200"', magellan(123.4567).toDMS())
+
 // must get the same result when coverting between formats consecutively
 assert.equal('123.456700', magellan(magellan(123.4567).toDMS()).toDD())
+assert.equal('123.456700', magellan(magellan(123.4567).toDM()).toDD())
 assert.equal('123°27\'24.1200"W', magellan(magellan(-123.4567).longitude().toDMS()).toDMS())
 assert.equal('19°39\'0.0000"E', magellan(19.6500).longitude().toDMS())
 assert.equal('19°38\'59.9999"E', magellan(19.64999997).longitude().toDMS())
