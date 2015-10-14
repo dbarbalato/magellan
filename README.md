@@ -5,8 +5,8 @@ JavaScript Latitude and Longitude Validation and Formatting
 
 ## Installation
 
-    $ npm install magellan-coords --save 
+    $ npm install magellan-coords --save
 
 ## Usage
 
-http://dbarbalato.github.com/magellan/ 
+http://dbarbalato.github.com/magellan/
