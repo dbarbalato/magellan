@@ -60,6 +60,13 @@ magellan('12°20\'44.1600"N').latitude().toDD()   // 12.3456
 magellan('12°20\'44.1600"S').latitude().toDD()   // -12.3456
 magellan('123°27\'21.6000"E').longitude().toDD() // 123.4560
 magellan('123°27\'21.6000"W').longitude().toDD() // -123.4560
+
+// or degrees and decimal minutes
+magellan('12°20.7402\'N').latitude().toDD()   // 12.3456
+magellan('12°20.7402\'S').latitude().toDD()   // -12.3456
+magellan('123°27.4020\'E').longitude().toDD() // 123.4560
+magellan('123°27.4020\'W').longitude().toDD() // -123.4560
+
 </code></pre>
 
 <p>All nice and gussied up for ya'!</p>
@@ -103,6 +110,11 @@ magellan('123')                           // just degrees (or just degrees and m
 magellan('12°34\'56.7890"S')              // degrees, minutes, seconds, milliseconds and direction
 magellan('12 34 56 N')                    // space-delimited string in degrees-minutes-seconds format
 magellan('N12 34 56')                     // same as above, with leading compass direction
+
+// degrees-minutes-decimal input formats
+magellan('12°34.56S')              // degrees, minutes, seconds, milliseconds and direction
+magellan('12 34.56 N')                    // space-delimited string in degrees-minutes-seconds format
+magellan('N12 34.56')                     // same as above, with leading compass direction
 </code></pre>
 
 <h3>Working with a parsed coordinate</h3>
