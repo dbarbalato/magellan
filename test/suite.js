@@ -30,6 +30,10 @@ assert.deepEqual({degrees: -12, minutes: 0, seconds: 0, direction: 'E'}, magella
 assert.deepEqual({degrees: -12, minutes: 0, seconds: 0}, magellan('-12').coordinate)
 assert.deepEqual({}, magellan().coordinate)
 
+// Parse degrees decimal minutes (DD°MM.mmmm)
+assert.deepEqual({degrees: 12, minutes: 32, seconds: 31.5, direction: 'N'}, magellan('12°32.525\'N').coordinate)
+assert.deepEqual({degrees: 12, minutes: 32, seconds: 31.5, direction: 'N'}, magellan('12 32.525 N').coordinate)
+
 /* VALIDATION */
 
 // latitude must not exceed +/-90 degrees

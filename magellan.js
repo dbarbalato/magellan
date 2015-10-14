@@ -52,6 +52,13 @@
 	                coordinate.degrees = parseInt(matches[1]);
 	                coordinate.minutes = parseFloat(matches[2] || 0.0);
 	                coordinate.seconds = parseFloat(matches[3] || 0.0);
+
+                  // If we were given decimal minutes use the fraction to populate the seconds.
+                  var fractional_minutes = coordinate.minutes % 1;
+                  if (fractional_minutes) {
+                    coordinate.minutes = coordinate.minutes - fractional_minutes;
+                    coordinate.seconds = parseFloat((fractional_minutes * 60).toFixed(6));
+                  }
 	            }
 	        }
 
