@@ -26,7 +26,7 @@ assert.equal('12.345600', magellan(magellan(12.3456).toDMS(' ')).toDD())
 /* VERSION */
 
 // magellan must correctly expose its version
-assert.equal('1.0.2', magellan.version)
+assert.equal('1.0.3', magellan.version)
 
 /* PARSING */
 
