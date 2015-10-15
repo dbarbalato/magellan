@@ -1,0 +1,31 @@
+{
+  "name": "magellan",
+  "main": "magellan.js",
+  "version": "1.0.5",
+  "homepage": "https://github.com/dbarbalato/magellan",
+  "authors": [
+    "Dave Barbalato"
+  ],
+  "description": "JavaScript Latitude and Longitude Validation and Formatting",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "lattitude",
+    "longitude",
+    "lat",
+    "lon",
+    "geographical",
+    "coordinates"
+  ],
+  "license": "unknown",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

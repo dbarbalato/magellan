@@ -1,10 +1,10 @@
-// Magellan version 1.0.2
+// Magellan version 1.0.5
 // Provided by Dave Barbalato - https://github.com/dbarbalato/
 // Distributable under the MIT License
 ;(function() {
 
     // Version identifier
-    var VERSION = '1.0.2';
+    var VERSION = '1.0.5';
 
     // Compass direction constants
     var NORTH = 'N';
