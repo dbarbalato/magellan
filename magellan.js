@@ -33,6 +33,8 @@
 	            coordinate.degrees = parseInt(args[0]);
 	            coordinate.minutes = parseInt(args[1]);
 	            coordinate.seconds = parseFloat(args[2]);
+
+	            var isPositive = coordinate.degrees >= 0
 	        }
 
 	        // Handle function call when magellan(' 123°45'59" N ')
@@ -77,12 +79,31 @@
 						coordinate.minutes = 0;
 						coordinate.degrees += 1;
 					}
-				}					
+				}			
+				var isPositive = args[0] >= 0;		
 			}		
 	        // Attempt to determine the direction if it was supplied
 	        if (typeof args[args.length - 1] === 'string') {
 	            var direction = args[args.length - 1].toUpperCase().match(/[NSEW]/);
-	            if (direction) coordinate.direction = direction[0];
+	            if (direction){
+	            	coordinate.direction = direction[0];
+	             	var isPositive = (direction == NORTH || direction == EAST)
+	         	} else {
+	         		if (coordinate.degrees !== 0) {
+	         			var isPositive = coordinate.degrees >= 0;
+	         		} else {
+	         			if (coordinate.minutes !== 0){
+	         				var isPositive = coordinate.minutes >= 0;
+	         			} else {
+	         				if (coordinate.seconds !== 0){
+	         					var isPositive = coordinate.seconds >= 0;
+	         				} else {
+	         					isPositive = true;
+	         				}
+	         			}
+	         		}
+
+	         	}
 	        }
 
 	        // Format the current coordinate as Degrees Decimal
@@ -96,9 +117,10 @@
 	            // Limit the precision to 4 decimal places
 	            formatted = formatted.toFixed(6);
 
-	            if (coordinate.direction
-	                    && (coordinate.direction == SOUTH || coordinate.direction == WEST))
-	                    formatted = '-' + formatted;
+	            
+	            if (coordinate.direction && (coordinate.direction == SOUTH || coordinate.direction == WEST) && decimal > 0) formatted = '-' + formatted;
+	            else if (!coordinate.direction && isPositive === false && decimal > 0) formatted = '-' + formatted;
+
 	            return formatted;
 	        };
 
@@ -128,7 +150,7 @@
 	                    // In the event coordinate direction is null, we can automatically infer it
 	                    // using the value of the degrees
 	                    if (!coordinate.direction) {
-	                        coordinate.direction = coordinate.degrees > 0 ? NORTH : SOUTH;
+	                        coordinate.direction = isPositive ? NORTH : SOUTH;
 	                        //Since we're storing direction in a separate field, degrees is always an absolute value.
 	                        //Prevents double '-' sign on formatting to decimal.
 	                        coordinate.degrees = Math.abs(coordinate.degrees);
@@ -157,10 +179,10 @@
 	                    // In the event coordinate direction is null, we can automatically infer it
 	                    // using the value of the degrees
 	                    if (!coordinate.direction) {
-	                      coordinate.direction = coordinate.degrees > 0 ? EAST : WEST;
-                        //Since we're storing direction in a separate field, degree is always an absolute value.
+	                      coordinate.direction = isPositive ? EAST : WEST;
+                          //Since we're storing direction in a separate field, degree is always an absolute value.
 	                      //Prevents double '-' sign on formatting to decimal.
-                        coordinate.degrees = Math.abs(coordinate.degrees);
+                          coordinate.degrees = Math.abs(coordinate.degrees);
 	                    }
 
 	                    // Enable method chaining
