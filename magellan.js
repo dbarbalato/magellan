@@ -4,7 +4,7 @@
 ;(function() {
 
     // Version identifier
-    var VERSION = '1.0.5';
+    var VERSION = '1.1.0';
 
     // Compass direction constants
     var NORTH = 'N';
@@ -17,14 +17,14 @@
 
     // Degrees minutes seconds format (e.g. 12°34'56" N or N12°34'56.123" )
     var DMS_FORMAT_REGEX = /^[NSEW]?\s*([+-]?\d{1,3})°?\s*(?:(\d{1,2}(?:\.\d+)?)[′'`]?\s*(?:(\d{1,2}(?:\.\d+)?)["″]?\s*)?)?\s*[NSEW]?$/;
-    
+
     // Magellan factory
     function magellan() {
-		
+
 		var args = arguments;
-		
+
 		var instance = function() {
-			
+
 			// Store the parsed fields in the publicly exposed coordinate object
 	        var coordinate = this.coordinate = {};
 
@@ -55,20 +55,20 @@
 	                coordinate.minutes = parseFloat(matches[2] || 0.0);
 	                coordinate.seconds = parseFloat(matches[3] || 0.0);
 	            }
-	        } 
-        
+	        }
+
 			// Handle function call when magellan( 123.4567 ) or similar
 	        else if (args.length >= 1 && typeof args[0] == 'number') {
 
 	            // Degrees is the integer portion of the input
 	            coordinate.degrees = parseInt(args[0]);
-            
+
 	            var decimal = Math.abs(parseFloat(args[0]) - coordinate.degrees);
 	            coordinate.minutes = parseInt(decimal * 60);
 
 				var x = ((decimal * 60) - coordinate.minutes) * 60;
 				if(x < 59.99995){
-		            coordinate.seconds = parseFloat((x).toFixed(4));					
+		            coordinate.seconds = parseFloat((x).toFixed(4));
 				}
 	            coordinate.seconds = parseFloat((x).toFixed(4));
 
@@ -79,9 +79,9 @@
 						coordinate.minutes = 0;
 						coordinate.degrees += 1;
 					}
-				}			
-				var isPositive = args[0] >= 0;		
-			}		
+				}
+				var isPositive = args[0] >= 0;
+			}
 	        // Attempt to determine the direction if it was supplied
 	        if (typeof args[args.length - 1] === 'string') {
 	            var direction = args[args.length - 1].toUpperCase().match(/[NSEW]/);
@@ -113,11 +113,11 @@
 	            var formatted;
 	            if (coordinate.degrees >= 0) formatted = (coordinate.degrees + decimal);
 	            else formatted = (coordinate.degrees - decimal);
-            
+
 	            // Limit the precision to 4 decimal places
 	            formatted = formatted.toFixed(6);
 
-	            
+
 	            if (coordinate.direction && (coordinate.direction == SOUTH || coordinate.direction == WEST) && decimal > 0) formatted = '-' + formatted;
 	            else if (!coordinate.direction && isPositive === false && decimal > 0) formatted = '-' + formatted;
 
@@ -192,7 +192,7 @@
 	            // In the event of a failure, break the chain, throwing an error
 	            return null;
 	        };
-	
+
 			// Compare with another magellan instance for equality
 			this.equals = function(other) {
 				return coordinate && other.coordinate
@@ -202,10 +202,10 @@
 					&& coordinate.direction == other.coordinate.direction;
 			};
 		};
-	
+
 		// Expose the version
 		magellan.version = VERSION;
-		
+
         // Enable method chaining
         return new instance();
 
