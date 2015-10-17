@@ -34,7 +34,7 @@
 	            coordinate.minutes = parseInt(args[1]);
 	            coordinate.seconds = parseFloat(args[2]);
 
-	            var isPositive = parseInt(args[0]) >= 0;	
+	            var isPositive = coordinate.degrees >= 0
 	        }
 
 	        // Handle function call when magellan(' 123°45'59" N ')
