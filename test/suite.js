@@ -1,5 +1,7 @@
-var magellan = require('../magellan')
-var assert = require('assert')
+var magellan = require('../magellan');
+var assert = require('assert');
+var package_json = require('../package.json');
+var bower_json = require('../bower.json');
 
 /* FACTORY */
 var x = magellan(123.45)
@@ -8,8 +10,14 @@ assert.notDeepEqual(x.coordinate, y.coordinate)
 
 /* IDEMPOTENCY */
 
+// check formatting
+assert.equal('123.456700', magellan(123.4567).toDD())
+assert.equal('123°27.4020\'', magellan(123.4567).toDM())
+assert.equal('123°27\'24.1200"', magellan(123.4567).toDMS())
+
 // must get the same result when coverting between formats consecutively
 assert.equal('123.456700', magellan(magellan(123.4567).toDMS()).toDD())
+assert.equal('123.456700', magellan(magellan(123.4567).toDM()).toDD())
 assert.equal('123°27\'24.1200"W', magellan(magellan(-123.4567).longitude().toDMS()).toDMS())
 assert.equal('19°39\'0.0000"E', magellan(19.6500).longitude().toDMS())
 assert.equal('19°38\'59.9999"E', magellan(19.64999997).longitude().toDMS())
@@ -20,7 +28,8 @@ assert.equal('12.345600', magellan(magellan(12.3456).toDMS(' ')).toDD())
 /* VERSION */
 
 // magellan must correctly expose its version
-assert.equal('1.0.5', magellan.version)
+assert.equal(package_json.version, magellan.version)
+assert.equal(bower_json.version, magellan.version)
 
 /* PARSING */
 
@@ -29,6 +38,10 @@ assert.deepEqual({degrees: 12, minutes: 32, seconds: 13.44, direction: 'N'}, mag
 assert.deepEqual({degrees: -12, minutes: 0, seconds: 0, direction: 'E'}, magellan('-12', 'E').coordinate)
 assert.deepEqual({degrees: -12, minutes: 0, seconds: 0}, magellan('-12').coordinate)
 assert.deepEqual({}, magellan().coordinate)
+
+// Parse degrees decimal minutes (DD°MM.mmmm)
+assert.deepEqual({degrees: 12, minutes: 32, seconds: 31.5, direction: 'N'}, magellan('12°32.525\'N').coordinate)
+assert.deepEqual({degrees: 12, minutes: 32, seconds: 31.5, direction: 'N'}, magellan('12 32.525 N').coordinate)
 
 /* VALIDATION */
 

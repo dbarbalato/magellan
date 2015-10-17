@@ -1,4 +1,3 @@
-// Magellan version 1.0.5
 // Provided by Dave Barbalato - https://github.com/dbarbalato/
 // Distributable under the MIT License
 ;(function() {
@@ -54,6 +53,13 @@
 	                coordinate.degrees = parseInt(matches[1]);
 	                coordinate.minutes = parseFloat(matches[2] || 0.0);
 	                coordinate.seconds = parseFloat(matches[3] || 0.0);
+
+                  // If we were given decimal minutes use the fraction to populate the seconds.
+                  var fractional_minutes = coordinate.minutes % 1;
+                  if (fractional_minutes) {
+                    coordinate.minutes = coordinate.minutes - fractional_minutes;
+                    coordinate.seconds = parseFloat((fractional_minutes * 60).toFixed(6));
+                  }
 	            }
 	        }
 
@@ -122,6 +128,19 @@
 	            else if (!coordinate.direction && isPositive === false && decimal > 0) formatted = '-' + formatted;
 
 	            return formatted;
+	        };
+
+	        // Format the current coordinate as Degrees Decimal Minutes
+	        // Optionally join components on a seperator by providing a string argument
+	        this.toDM = function(seperator) {
+              var minutes = coordinate.minutes + (coordinate.seconds / 60);
+
+              var components = [
+	                Math.abs(coordinate.degrees) + '°',
+	                minutes.toFixed(4) + '\'',
+	                (coordinate.direction ? coordinate.direction : '')
+	            ];
+	            return typeof seperator === 'string' ? components.join(seperator) : components.join('');
 	        };
 
 	        // Format the current coordinate as Degrees Minutes Seconds
