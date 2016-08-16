@@ -17,6 +17,7 @@
     // Degrees minutes seconds format (e.g. 12°34'56" N or N12°34'56.123" )
     var DMS_FORMAT_REGEX = /^[NSEW]?\s*([+-]?\d{1,3})°?\s*(?:(\d{1,2}(?:\.\d+)?)[′'`]?\s*(?:(\d{1,2}(?:\.\d+)?)["″]?\s*)?)?\s*[NSEW]?$/;
 
+    var NOT_DD_FORMAT_REGEX = /\S[\s′'`"″\u00B0]\S/;
     // Magellan factory
     function magellan() {
 
@@ -41,9 +42,8 @@
 	            var matches;
 
 	            //  Attempt to match against Decimal Degrees format
-	            if ((matches = args[0].match(DD_FORMAT_REGEX)) != null) {
+	            if (((matches = args[0].match(DD_FORMAT_REGEX)) != null) && !NOT_DD_FORMAT_REGEX.exec(args[0])) {
 	                coordinate.degrees = parseInt(matches[1]);
-
 	                var decimal = parseFloat(matches[2]) || 0.0;
 	                coordinate.minutes = parseInt(decimal * 60);
 	                coordinate.seconds = parseFloat(((decimal * 60) - coordinate.minutes) * 60);
@@ -123,8 +123,8 @@
 	            // Limit the precision to 4 decimal places
 	            formatted = formatted.toFixed(6);
 
+	            if (coordinate.direction && (coordinate.direction == SOUTH || coordinate.direction == WEST) && decimal >= 0) formatted = '-' + formatted;
 
-	            if (coordinate.direction && (coordinate.direction == SOUTH || coordinate.direction == WEST) && decimal > 0) formatted = '-' + formatted;
 	            else if (!coordinate.direction && isPositive === false && decimal > 0) formatted = '-' + formatted;
 
 	            return formatted;

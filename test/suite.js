@@ -101,9 +101,15 @@ assert.equal('123°27\'21.6000"E', magellan(123.456).longitude().toDMS())
 assert.equal('123.456000', magellan('123°27\'21.6"E').toDD())
 assert.equal('123.456000', magellan('123°27\'21.6"').longitude().toDD())
 assert.equal('-123.000000', magellan(-123).toDD())
+assert.equal('-12.000000', magellan('-12').latitude().toDD())
+assert.equal('-12.000000', magellan('12S').toDD())
 assert.equal('123°27\'21.6000"W', magellan(-123.456).longitude().toDMS())
 assert.equal('12.300000', magellan(12.3).toDD())
 assert.equal('12° 20\' 44.1600" S', magellan(-12.3456).latitude().toDMS(' '))
+assert.equal('12.050000', magellan('12 3').toDD())
+assert.equal('12.050000', magellan('12 03').toDD())
+assert.equal('12.050000', magellan('12°3').toDD())
+
 
 
 /* BUGFIX for CASE #4: Longitude parsing and validation fails in specific cases */
