@@ -13,11 +13,11 @@
 
     // Signed degree format (e.g. -123.45)
     var DD_FORMAT_REGEX = /^([+-]?\d{1,3})(.\d+)?$/;
-
+    // contains symbols indicating not a signed degree format
+    var NOT_DD_FORMAT_REGEX = /\S[\s′'`"″\u00B0]\S/;
     // Degrees minutes seconds format (e.g. 12°34'56" N or N12°34'56.123" )
     var DMS_FORMAT_REGEX = /^[NSEW]?\s*([+-]?\d{1,3})°?\s*(?:(\d{1,2}(?:\.\d+)?)[′'`]?\s*(?:(\d{1,2}(?:\.\d+)?)["″]?\s*)?)?\s*[NSEW]?$/;
 
-    var NOT_DD_FORMAT_REGEX = /\S[\s′'`"″\u00B0]\S/;
     // Magellan factory
     function magellan() {
 
@@ -42,7 +42,7 @@
 	            var matches;
 
 	            //  Attempt to match against Decimal Degrees format
-	            if (((matches = args[0].match(DD_FORMAT_REGEX)) != null) && !NOT_DD_FORMAT_REGEX.exec(args[0])) {
+	            if (!NOT_DD_FORMAT_REGEX.exec(args[0]) && ((matches = args[0].match(DD_FORMAT_REGEX)) != null)) {
 	                coordinate.degrees = parseInt(matches[1]);
 	                var decimal = parseFloat(matches[2]) || 0.0;
 	                coordinate.minutes = parseInt(decimal * 60);
